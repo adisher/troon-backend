@@ -10,16 +10,16 @@ var cors = require("cors");
 const multer = require("multer");
 require('dotenv').config();
 
-const inputMiddleware = require("./middlewares/inputMiddleware");
+const inputMiddleware = require("../middlewares/inputMiddleware");
 const {
   userRoute,
   adminRoute,
   clientRoute,
   clientDocumentsRoute,
   adminDocumentRoutes,
-} = require("./routes");
+} = require("../routes");
 
-const authMiddleware = require("./middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 var app = express();
 var storage = multer.diskStorage({
