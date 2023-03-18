@@ -24,7 +24,7 @@ const authMiddleware = require("./middlewares/authMiddleware");
 var app = express();
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'tmp'));
+    cb(null, path.join(__dirname, '/tmp'));
   },
   filename: function (req, file, cb) {
     console.log("f: ", file)
@@ -54,7 +54,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "tmp")));
+app.use(express.static(__dirname + '/tmp'));
+app.use('./tmp', express.static('tmp'));
 
 passport.use(
   new Strategy((username, password, done) => {
