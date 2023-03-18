@@ -24,9 +24,10 @@ const authMiddleware = require("./middlewares/authMiddleware");
 var app = express();
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, __dirname);
   },
   filename: function (req, file, cb) {
+    console.log("f: ", file)
     cb(null, file.originalname); //Appending .jpg
   },
 });
@@ -74,6 +75,7 @@ app.post(
   authMiddleware.respond
 );
 app.post("/upload", upload.single("file"), function (req, res, next) {
+  console.log(req.file);
   return res.status(200).json(req.file);
 });
 // test routes
