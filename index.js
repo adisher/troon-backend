@@ -55,7 +55,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(__dirname + '/tmp'));
-app.use('./tmp', express.static('tmp'));
+app.use('/tmp', express.static('tmp'));
 
 passport.use(
   new Strategy((username, password, done) => {
