@@ -7,7 +7,9 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const { Strategy } = require("passport-local");
 var cors = require("cors");
+const AWS = require('aws-sdk');
 const multer = require("multer");
+const multerS3 = require('multer-s3');
 require('dotenv').config();
 
 const inputMiddleware = require("./middlewares/inputMiddleware");
@@ -21,16 +23,32 @@ const {
 
 const authMiddleware = require("./middlewares/authMiddleware");
 
+
 var app = express();
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '/tmp'));
-  },
-  filename: function (req, file, cb) {
-    console.log("f: ", file)
-    cb(null, file.originalname); //Appending .jpg
-  },
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, path.join(__dirname, '/tmp'));
+//   },
+//   filename: function (req, file, cb) {
+//     console.log("f: ", file)
+//     cb(null, file.originalname); //Appending .jpg
+//   },
+// });
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.S3_ACCESS_KEY,
+  secretAccessKey: process.env.S3_SECRET_KEY,
+  region: process.env.S3_REGION
 });
+
+// multer for s3
+var storage = multerS3({
+  s3: s3,
+  bucket: 'troon',
+  key: function (req, file, cb) {
+    cb(null, Date.now().toString() + '-' + file.originalname);
+  }
+})
 
 var upload = multer({ storage: storage });
 // const upload = multer({ storage: storage });
