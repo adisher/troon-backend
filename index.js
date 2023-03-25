@@ -82,7 +82,7 @@ passport.use(
 );
 
 // actual routes
-// app.use(inputMiddleware.handleOptions);
+app.use(inputMiddleware.handleOptions);
 app.post("/signup", authMiddleware.userSignup);
 app.post(
   "/login",
