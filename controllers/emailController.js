@@ -17,7 +17,7 @@ async function createTestAccount() {
 
 const mailOptions = {
   from: from,
-  to: '3445royal@gmail.com, mateen@trootechnologies.com',
+  to: 'adilsher973@gmail.com',
   subject: 'Sending Email using Node.js',
   html: '<h1>Welcome to Node JS</h1>',
 };

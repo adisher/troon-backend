@@ -94,16 +94,17 @@ app.post(
   authMiddleware.generateToken,
   authMiddleware.respond
 );
+
+// test routes
+// app.use('/', indexRouter);
+app.use(authMiddleware.verifyToken);
+app.use("/users", userRoute); //Mount userRoute in express
+app.use("/admin", adminRoute); //Mount adminRoute in express
+app.use("/client", clientRoute); //Mount clientRoute in express
 app.post("/upload", upload.single("file"), function (req, res, next) {
   console.log(req.file);
   return res.status(200).json(req.file);
 });
-// test routes
-// app.use('/', indexRouter);
-app.use("/users", userRoute); //Mount userRoute in express
-app.use("/admin", adminRoute); //Mount adminRoute in express
-app.use("/client", clientRoute); //Mount clientRoute in express
-app.use(authMiddleware.verifyToken);
 app.use(
   "/client/documents",
   authMiddleware.checkClientPermissions,
